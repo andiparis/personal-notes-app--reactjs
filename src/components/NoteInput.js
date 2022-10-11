@@ -6,7 +6,8 @@ class NoteInput extends React.Component {
 
     this.state = {
       title: '',
-      body: ''
+      body: '',
+      charLeft: 50
     }
 
     this.onNoteTitleChangeEventHandler = this.onNoteTitleChangeEventHandler.bind(this);
@@ -15,9 +16,16 @@ class NoteInput extends React.Component {
   }
 
   onNoteTitleChangeEventHandler(event) {
+    const limitChar = 50;
+    const charCount = event.target.value.length;
+    let charLeft = limitChar - charCount;
+    if (charLeft < 0) 
+      charLeft = 0;
+    
     this.setState(() => {
       return {
-        title: event.target.value
+        title: event.target.value.slice(0, limitChar),
+        charLeft: charLeft,
       };
     });
   }
@@ -37,11 +45,15 @@ class NoteInput extends React.Component {
 
   render() {
     return (
-      <form className="note-input" onSubmit={this.onSubmitEventHandler}>
-        <input type="text" placeholder="Masukkan judul catatan ..." value={this.state.title} onChange={this.onNoteTitleChangeEventHandler} />
-        <textarea rows="8" placeholder="Masukkan catatan ..." value={this.state.body} onChange={this.onNoteBodyChangeEventHandler}></textarea>
-        <button type="submit">Buat</button>
-      </form>
+      <div className="note-input">
+        <h2 className="note-input__title">Buat Catatan</h2>
+        <p className="note-input__title__char-limit">Sisa karakter: {this.state.charLeft}</p>
+        <form className="note-input__body" onSubmit={this.onSubmitEventHandler}>
+          <input type="text" placeholder="Masukkan judul catatan ..." value={this.state.title} onChange={this.onNoteTitleChangeEventHandler} />
+          <textarea rows="8" placeholder="Masukkan catatan ..." value={this.state.body} onChange={this.onNoteBodyChangeEventHandler}></textarea>
+          <button type="submit">Buat</button>
+        </form>
+      </div>
     );
   }
 }
