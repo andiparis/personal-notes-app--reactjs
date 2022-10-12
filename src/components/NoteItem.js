@@ -1,6 +1,6 @@
 import React from 'react';
 import NoteItemContent from './NoteItemContent';
-import NoteAction from './NoteAction';
+import NoteItemAction from './NoteItemAction';
 
 function NoteItem({ id, title, body, createdAt, onDelete }) {
   return (
@@ -9,7 +9,7 @@ function NoteItem({ id, title, body, createdAt, onDelete }) {
         title={title} 
         body={body} 
         createdAt={createdAt} />
-      <NoteAction id={id} onDelete={onDelete} />
+      <NoteItemAction id={id} onDelete={onDelete} />
     </div>
   );
 }
