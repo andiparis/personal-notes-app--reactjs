@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NoteAction({ id, onDelete }) {
+function NoteItemAction({ id, onDelete }) {
   return (
     <div className="note-item__action">
       <button className="note-item__delete-button" onClick={() => onDelete(id)}>Delete</button>
@@ -8,4 +8,4 @@ function NoteAction({ id, onDelete }) {
   );
 }
 
-export default NoteAction;
+export default NoteItemAction;
