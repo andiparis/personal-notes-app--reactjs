@@ -25,6 +25,21 @@ input::placeholder, textarea::placeholder {
   font-weight: bold;
 }
 
+.navigation ul li {
+  display: inline-block;
+  padding: 16px;
+}
+ 
+.navigation ul li a {
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.navigation ul li a:hover {
+  font-weight: bold;
+}
+
 .note-app__header {
   display: flex;
   align-items: center;
@@ -41,7 +56,7 @@ input::placeholder, textarea::placeholder {
 
 .note-app__body {
   max-width: 1000px;
-  margin: 16px auto;
+  margin: auto;
   padding: 12px;
 }
 
@@ -52,7 +67,7 @@ input::placeholder, textarea::placeholder {
 
 .note-input {
   margin: 0 auto;
-  max-width: 500px;
+  max-width: 600px;
   margin-bottom: 48px;
 }
 
@@ -62,6 +77,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .note-input__title {
+  margin: 20px auto;
   font-weight: bold;
 }
 
@@ -115,10 +131,13 @@ input::placeholder, textarea::placeholder {
 }
 
 .note-item__title {
-  text-overflow: ellipsis;
-  overflow: hidden;
+  display: block;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-bottom: 4px;
+  text-decoration: none;
+  color: white;
 }
 
 .note-item__date {
@@ -176,7 +195,9 @@ input::placeholder, textarea::placeholder {
   }
 
   .note-search input {
-    min-width: 400px;
+    display: block;
+    margin: 20px auto;
+    min-width: 600px;
   }
 }
 
@@ -184,4 +205,42 @@ input::placeholder, textarea::placeholder {
   .notes-list {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+.note-detail {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.note-detail__title {
+  margin: 20px auto;
+  font-weight: bold;
+}
+
+.note-detail__body {
+  min-height: 240px;
+}
+
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-page a {
+  color: white;
+  font-weight: 600;
+}
+
+.not-found-page__title {
+  font-size: 54px;
+  font-weight: 900;
+}
+
+.not-found-page__body {
+  margin: 12px 0;
+  font-size: 16px;
+  font-weight: 300;
 }

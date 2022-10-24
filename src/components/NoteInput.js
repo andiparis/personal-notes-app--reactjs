@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class NoteInput extends React.Component {
     this.state = {
       title: '',
       body: '',
-      charLeft: 50
+      charLeft: 50,
     }
 
     this.onNoteTitleChangeEventHandler = this.onNoteTitleChangeEventHandler.bind(this);
@@ -33,7 +34,7 @@ class NoteInput extends React.Component {
   onNoteBodyChangeEventHandler(event) {
     this.setState(() => {
       return {
-        body: event.target.value
+        body: event.target.value,
       };
     });
   }
@@ -44,7 +45,7 @@ class NoteInput extends React.Component {
     this.setState({ 
       title: '',
       body: '',
-      charLeft: 50
+      charLeft: 50,
     });
   }
 
@@ -54,13 +55,27 @@ class NoteInput extends React.Component {
         <h2 className="note-input__title">Buat Catatan</h2>
         <p className="note-input__title__char-limit">Sisa karakter: {this.state.charLeft}</p>
         <form className="note-input__body" onSubmit={this.onSubmitEventHandler}>
-          <input type="text" placeholder="Masukkan judul catatan ..." value={this.state.title} onChange={this.onNoteTitleChangeEventHandler} required />
-          <textarea rows="8" placeholder="Masukkan catatan ..." value={this.state.body} onChange={this.onNoteBodyChangeEventHandler} required></textarea>
+          <input 
+            type="text" 
+            placeholder="Masukkan judul catatan ..." 
+            value={this.state.title} 
+            onChange={this.onNoteTitleChangeEventHandler} 
+            required />
+          <textarea 
+            rows="10" 
+            placeholder="Masukkan catatan ..." 
+            value={this.state.body} 
+            onChange={this.onNoteBodyChangeEventHandler} 
+            required></textarea>
           <button type="submit">Buat</button>
         </form>
       </div>
     );
   }
+}
+
+NoteInput.propTypes = {
+  addNotes: PropTypes.func,
 }
 
 export default NoteInput;
