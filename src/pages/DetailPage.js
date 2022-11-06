@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import NoteHeader from '../components/NoteHeader';
 import NoteDetail from '../components/NoteDetail';
@@ -14,7 +15,7 @@ class DetailPage extends React.Component {
     super(props);
  
     this.state = {
-      notes: getNotes().filter(note => note.id == props.id)
+      notes: getNotes().filter(note => note.id === props.id)
     };
   }
  
@@ -29,13 +30,17 @@ class DetailPage extends React.Component {
         <section>
           {
             this.state.notes.map((note) => (
-              <NoteDetail {...note} />
+              <NoteDetail key={note.id} {...note} />
             ))
           }
         </section>
       </>
     );
   }
+}
+
+DetailPage.propTypes = {
+  id: PropTypes.number.isRequired,
 }
  
 export default DetailPageWrapper;
