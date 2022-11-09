@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeConsumer } from '../contexts/ThemeContext';
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -51,25 +52,33 @@ class NoteInput extends React.Component {
 
   render() {
     return (
-      <div className="note-input">
-        <h2 className="note-input__title">Buat Catatan</h2>
-        <p className="note-input__title__char-limit">Sisa karakter: {this.state.charLeft}</p>
-        <form className="note-input__body" onSubmit={this.onSubmitEventHandler}>
-          <input 
-            type="text" 
-            placeholder="Masukkan judul catatan ..." 
-            value={this.state.title} 
-            onChange={this.onNoteTitleChangeEventHandler} 
-            required />
-          <textarea 
-            rows="10" 
-            placeholder="Masukkan catatan ..." 
-            value={this.state.body} 
-            onChange={this.onNoteBodyChangeEventHandler} 
-            required></textarea>
-          <button type="submit">Buat</button>
-        </form>
-      </div>
+      <ThemeConsumer>
+        {
+          ({ locale }) => {
+            return (
+              <div className="note-input">
+                <h2 className="note-input__title">{locale === 'id' ? 'Buat Catatan' : 'Create Note'}</h2>
+                <p className="note-input__title__char-limit">{locale === 'id' ? 'Sisa karakter' : 'Remaining characters'}: {this.state.charLeft}</p>
+                <form className="note-input__body" onSubmit={this.onSubmitEventHandler}>
+                  <input 
+                    type="text" 
+                    placeholder={locale === 'id' ? 'Masukkan judul catatan ...' : 'Enter note title ...'}
+                    value={this.state.title} 
+                    onChange={this.onNoteTitleChangeEventHandler} 
+                    required />
+                  <textarea 
+                    rows="10" 
+                    placeholder={locale === 'id' ? 'Masukkan catatan ...' : 'Enter note ...'} 
+                    value={this.state.body} 
+                    onChange={this.onNoteBodyChangeEventHandler} 
+                    required></textarea>
+                  <button type="submit">{locale === 'id' ? 'Buat' : 'Create'}</button>
+                </form>
+              </div>
+            );
+          }
+        }
+      </ThemeConsumer>
     );
   }
 }

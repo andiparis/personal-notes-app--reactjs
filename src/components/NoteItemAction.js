@@ -1,16 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeConsumer } from '../contexts/ThemeContext';
 
 function NoteItemAction({ id, onDelete }) {
   return (
-    <div className="note-item__action">
-      <button className="note-item__delete-button" onClick={() => onDelete(id)}>Delete</button>
-    </div>
+    <ThemeConsumer>
+      {
+        ({ locale }) => {
+          return (
+            <div className="note-item__action">
+              <button className="note-item__delete-button" onClick={() => onDelete(id)}>{locale === 'id' ? 'Hapus' : 'Delete'}</button>
+            </div>
+          );
+        }
+      }
+    </ThemeConsumer>
   );
 }
 
 NoteItemAction.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 }
 
