@@ -1,13 +1,24 @@
+:root {
+  --font-color: #333;
+  --background-color: #eee;
+}
+ 
+[data-theme='dark'] {
+  --font-color: #eee;
+  --background-color: #333;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: background 0.3s ease-in;
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #202124;
-  color: white;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
 input, textarea {
@@ -15,7 +26,7 @@ input, textarea {
   margin: 12px 0;
   font-family: 'Inter', sans-serif;
   background-color: transparent;
-  color: white;
+  color: var(--font-color);
   border: 1px solid #aaa;
   border-radius: 4px;
 }
@@ -23,6 +34,47 @@ input, textarea {
 input::placeholder, textarea::placeholder {
   color: #aaa;
   font-weight: bold;
+}
+
+.auth-input {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-input input {
+  display: block;
+  width: 100%;
+}
+
+.auth-input__title {
+  margin: 20px auto;
+  font-weight: bold;
+  text-align: center;
+}
+
+.auth-input__body {
+  min-height: 175px;
+  min-width: 400px;
+}
+
+.auth-input button {
+  display: block;
+  padding: 8px;
+  background-color: transparent;
+  font-family: 'Inter', sans-serif;
+  color: var(--font-color);
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-input a {
+  font-size: 14px;
+  color: #aaa;
 }
 
 .navigation ul li {
@@ -33,7 +85,8 @@ input::placeholder, textarea::placeholder {
 .navigation ul li a {
   font-size: 20px;
   text-decoration: none;
-  color: white;
+  color: var(--font-color);
+  cursor: pointer;
 }
 
 .navigation ul li a:hover {
@@ -51,7 +104,7 @@ input::placeholder, textarea::placeholder {
 .note-app__header h1 {
   margin: 8px 0;
   flex: 1;
-  color: white;
+  color: var(--font-color);
 }
 
 .note-app__body {
@@ -97,7 +150,7 @@ input::placeholder, textarea::placeholder {
   padding: 8px;
   background-color: transparent;
   font-family: 'Inter', sans-serif;
-  color: white;
+  color: var(--font-color);
   border: 1px solid #aaa;
   border-radius: 4px;
   font-weight: bold;
@@ -137,7 +190,7 @@ input::placeholder, textarea::placeholder {
   text-overflow: ellipsis;
   margin-bottom: 4px;
   text-decoration: none;
-  color: white;
+  color: var(--font-color);
 }
 
 .note-item__date {
@@ -187,6 +240,12 @@ input::placeholder, textarea::placeholder {
   .notes-list {
     grid-template-columns: 1fr 1fr;
   }
+
+  .note-search input {
+    display: block;
+    margin: 20px auto;
+    min-width: 400px;
+  }
 }
 
 @media only screen and (min-width: 800px) {
@@ -229,18 +288,7 @@ input::placeholder, textarea::placeholder {
   justify-content: center;
 }
 
-.not-found-page a {
-  color: white;
-  font-weight: 600;
-}
-
 .not-found-page__title {
   font-size: 54px;
   font-weight: 900;
-}
-
-.not-found-page__body {
-  margin: 12px 0;
-  font-size: 16px;
-  font-weight: 300;
 }
