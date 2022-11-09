@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
-import NoteHeader from '../components/NoteHeader';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
-import { getNotes, deleteNote } from '../utils';
+import { ThemeConsumer } from '../contexts/ThemeContext';
+import { getActiveNotes, deleteNote } from '../utils/api';
+import { showFormattedDate } from '../utils/index';
 
 function HomePageWrapper() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,7 +24,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: getNotes(),
+      notes: [],
       searchKeyword: props.defaultKeyword || '',
     }
 
@@ -31,39 +32,56 @@ class HomePage extends React.Component {
     this.onSearchKeywordChangeHandler = this.onSearchKeywordChangeHandler.bind(this);
   }
 
-  onDeleteHandler(id) {
-    deleteNote(id);
+  async componentDidMount() {
+    const { data } = await getActiveNotes();
+    
     this.setState(() => {
-      return {
-        notes: getNotes(),
-      }
+      return { notes: data };
+    });
+  }
+
+  async onDeleteHandler(id) {
+    await deleteNote(id);
+    const { data } = await getActiveNotes();
+
+    this.setState(() => {
+      return { notes: data }
     });
   }
 
   onSearchKeywordChangeHandler(searchKeyword) {
     this.setState(() => {
-      return {
-        searchKeyword,
-      }
+      return { searchKeyword }
     });
 
     this.props.keywordChange(searchKeyword);
   }
 
   render() {
+    if (this.state.notes !== []) {
+      this.state.notes.map((note) => {
+        return note.createdAt = showFormattedDate(note.createdAt);
+      });
+    }
+
     const notes = this.state.notes.filter((note) => {
       return note.title.toUpperCase().includes(this.state.searchKeyword.toUpperCase());
     });
 
     return (
-      <>
-        <NoteHeader />
-        <section className="note-app__body">
-          <SearchBar searchKeyword={this.state.searchKeyword} searchKeywordChange={this.onSearchKeywordChangeHandler} />
-          <h2><b>Catatan Aktif</b></h2>
-          <NoteList notes={notes} onDelete={this.onDeleteHandler} />
-        </section>
-      </>
+      <ThemeConsumer>
+        {
+          ({ locale }) => {
+            return (
+              <section className="note-app__body">
+                <SearchBar searchKeyword={this.state.searchKeyword} searchKeywordChange={this.onSearchKeywordChangeHandler} />
+                <h2><b>{locale === 'id' ? 'Catatan Aktif' : 'Active Notes'}</b></h2>
+                <NoteList notes={notes} onDelete={this.onDeleteHandler} />
+              </section>
+            );
+          }
+        }
+      </ThemeConsumer>
     );
   }
 }
